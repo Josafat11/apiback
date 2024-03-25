@@ -1,4 +1,4 @@
-// config/cloudinaryConfig.js
+    // config/cloudinaryConfig.js
 const multer = require('multer');
 const { CloudinaryStorage } = require('multer-storage-cloudinary');
 const { v4: uuidv4 } = require('uuid');
@@ -21,19 +21,9 @@ const storage = new CloudinaryStorage({
     }
   }
 });
-const Team = new CloudinaryStorage({
-  cloudinary: cloudinary,
-  params: {
-    folder: 'Mascoteh/Team',
-    format: async (req, file) => 'png',
-    public_id: (req, file) => {
-      const randomName = uuidv4();
-      return randomName;
-    }
-  }
-});
+
 
 const upload = multer({ storage: storage });
-const uploadTeam = multer({ storage: Team });
 
-module.exports = { upload, uploadTeam };
+
+module.exports = { upload };

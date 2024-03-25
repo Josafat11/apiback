@@ -2,14 +2,16 @@ import Product from '../models/products.model';
 import { upload } from '../config/cloudinaryConfig';
 
 export const createProduct = async (req, res) => {
-    const { name, category, price, description } = req.body;
     try {
-        // Utiliza multer para subir la imagen antes de crear el producto en la base de datos
         upload.single('imagen')(req, res, async (err) => {
             if (err) {
                 return res.status(400).json({ message: "Error uploading image" });
             }
-            const imgURL = req.file.path; // La URL de la imagen subida en Cloudinary
+            
+            // Acceder a los datos de formulario después de que multer haya procesado la solicitud
+            const { name, category, price, description } = req.body;
+            const imgURL = req.file.path;
+
             const newProduct = new Product({ name, category, price, description, imgURL });
             const productSaved = await newProduct.save();
             res.status(201).json(productSaved);
@@ -18,6 +20,7 @@ export const createProduct = async (req, res) => {
         res.status(500).json({ message: "Internal server error" });
     }
 };
+
 
 export const getProducts = async (req, res) => {
     const products = await Product.find();
