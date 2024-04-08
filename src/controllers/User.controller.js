@@ -64,13 +64,13 @@ export const singUp = async (req, res) => {
 }
 
 // Función para iniciar sesión
-// Función para iniciar sesión
-export const singIn  = async (req, res) => {
+export const singIn = async (req, res) => {
     try {
         const { email, password } = req.body;
 
         // Verificar si el usuario existe
         const user = await User.findOne({ email });
+
         if (!user) return res.status(400).json({ message: "Usuario no encontrado" });
 
         // Verificar si la contraseña es correcta
@@ -78,9 +78,9 @@ export const singIn  = async (req, res) => {
 
         if (!matchPassword) return res.status(400).json({ message: "Contraseña inválida", token: null });
 
-        // Si la contraseña es correcta, enviar el token de autenticación junto con el rol del usuario
+        // Si la contraseña es correcta, enviar el token de autenticación junto con el rol y door del usuario
         const token = generateAuthToken(user._id, user.role);
-        res.status(200).json({ message: 'Inicio de sesión exitoso', token, role: user.role, id: user.id });
+        res.status(200).json({ message: 'Inicio de sesión exitoso', token, role: user.role, door: user.door, id: user.id });
     } catch (error) {
         // Código de error 500 para errores internos del servidor
         // Se utiliza cuando no se puede determinar un código de estado más específico.

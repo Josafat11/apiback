@@ -7,11 +7,14 @@ const router = Router();
 router.get("/", petDoorController.getAllPetDoors);
 router.get("/:petDoorId", petDoorController.getPetDoorById);
 router.post("/", petDoorController.createPetDoor);
-router.put("/update-data/:petDoorId", petDoorController.updatePetDoorData); // Cambiada la ruta para actualizar datos
-router.put("/update-closing-time/:petDoorId", petDoorController.updateClosingTime); // Nueva ruta para actualizar el tiempo de cierre
+router.put("/update-data/:petDoorId", petDoorController.updatePetDoorData);
+router.put("/update-closing-time/:petDoorId", petDoorController.updateClosingTime);
 router.put("/:petDoorId", petDoorController.updatePetDoor);
 router.delete("/:petDoorId", petDoorController.deletePetDoor);
-// Agrega la nueva ruta para obtener la hora de cierre
 router.get("/closing-time/:petDoorId", petDoorController.getClosingTime);
+
+// Agregar la ruta para mostrar todo el historial
+router.post("/historial", petDoorController.addToHistorial);
+router.get("/historial", petDoorController.getAllHistorial);
 
 export default router;

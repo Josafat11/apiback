@@ -48,11 +48,15 @@ const userSchema = new Schema({
         required: true
     },
     respuestaSecreta: {
-        type: String, // Agrega el campo para la respuesta secreta
-        required: true // Asegúrate de que sea obligatorio
+        type: String,
+        required: true
     },
     recoveryCode: {
         type: String
+    },
+    door: {
+        type: String,
+        default: 'ninguno'
     }
 }, {
     timestamps: true,
