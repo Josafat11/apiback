@@ -45,7 +45,7 @@ const petDoorSchema = new Schema({
         default: false
     },
     temperatura: {
-        type: String // Cambiado a String
+        type: Number  // Cambiado a String
     }
 }, {
     timestamps: true,
