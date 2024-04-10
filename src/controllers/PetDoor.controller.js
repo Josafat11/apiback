@@ -125,11 +125,11 @@ export const deletePetDoor = async (req, res) => {
 
 export const updatePetDoorData = async (req, res) => {
     try {
-        const petDoorId = "65f3aa4b4a8f1b582066b244"; // ID de la puerta a actualizar (por el momento, puede ser estática)
-        const { state, danger, automaticMode, ubicacion } = req.body;
+        const petDoorId = "65f3aa4b4a8f1b582066b244"; // ID de la puerta a actualizar (puede ser estática por el momento)
+        const { state, danger, automaticMode, ubicacion, temperatura } = req.body; // Desestructurar temperatura de req.body
         console.log(req.body);
-        // Actualizar los datos de la puerta
-        const updatedPetDoor = await PetDoor.findByIdAndUpdate(petDoorId, { state, danger, automaticMode, ubicacion }, { new: true });
+        // Actualizar los datos de la puerta, incluyendo temperatura
+        const updatedPetDoor = await PetDoor.findByIdAndUpdate(petDoorId, { state, danger, automaticMode, ubicacion, temperatura }, { new: true });
 
         if (!updatedPetDoor) {
             return res.status(404).json({ message: "Puerta no encontrada" });
@@ -141,7 +141,6 @@ export const updatePetDoorData = async (req, res) => {
         res.status(500).json({ message: "Error interno del servidor" });
     }
 };
-
 
 
 export const updateClosingTime = async (req, res) => {
@@ -219,7 +218,7 @@ export const addToHistorial = async (req, res) => {
             timeOutside,
             userId,
             closingTime,
-            ubicacion
+            ubicacion,
         });
 
         // Guardar el registro de historial en la base de datos
@@ -232,3 +231,28 @@ export const addToHistorial = async (req, res) => {
         res.status(500).json({ message: 'Error interno del servidor' });
     }
 }
+
+
+
+export const updatePetDoorState = async (req, res) => {
+    try {
+        const petDoorId = "65f3aa4b4a8f1b582066b244"; // ID de la puerta a actualizar
+        const { state } = req.body; // Nuevo estado de la puerta
+
+        // Actualizar el estado de la puerta
+        const updatedPetDoor = await PetDoor.findByIdAndUpdate(
+            petDoorId, 
+            { state }, 
+            { new: true }
+        );
+
+        if (!updatedPetDoor) {
+            return res.status(404).json({ message: "Puerta no encontrada" });
+        }
+
+        res.status(200).json({ message: "Estado de la puerta actualizado exitosamente", petDoor: updatedPetDoor });
+    } catch (error) {
+        console.error('Error en la función updatePetDoorState:', error);
+        res.status(500).json({ message: "Error interno del servidor" });
+    }
+};

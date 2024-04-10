@@ -43,6 +43,9 @@ const petDoorSchema = new Schema({
     ubicacion: {
         type: Boolean,
         default: false
+    },
+    temperatura: {
+        type: String // Cambiado a String
     }
 }, {
     timestamps: true,

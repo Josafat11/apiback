@@ -12,9 +12,7 @@ router.put("/update-closing-time/:petDoorId", petDoorController.updateClosingTim
 router.put("/:petDoorId", petDoorController.updatePetDoor);
 router.delete("/:petDoorId", petDoorController.deletePetDoor);
 router.get("/closing-time/:petDoorId", petDoorController.getClosingTime);
+router.put("/update-state/:petDoorId", petDoorController.updatePetDoorState);
 
-// Agregar la ruta para mostrar todo el historial
-router.post("/historial", petDoorController.addToHistorial);
-router.get("/historial", petDoorController.getAllHistorial);
 
 export default router;

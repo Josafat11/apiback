@@ -13,6 +13,8 @@ import petDoor from "./routes/PetDoor.routes";
 import nosotros from "./routes/nosotros.routes"; 
 import politicas from "./routes/politicas.routes"; 
 import faq from "./routes/faq.routes"; 
+import historial from "./routes/historial.routes"; 
+
 
 const app = express();
 
@@ -38,6 +40,7 @@ app.use('/api/petdoor', petDoor);
 app.use('/api/nosotros', nosotros)
 app.use('/api/politicas', politicas)
 app.use('/api/faq', faq)
+app.use('/api/historia', historial)
 
 app.use((req, res, next) => {
     res.status(404).json({ message: "Routa incorrecta" });
